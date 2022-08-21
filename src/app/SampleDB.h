@@ -16,4 +16,3 @@ namespace app {
       unique_ptr<file::FileMgr> _fm;
   };
 }
-
