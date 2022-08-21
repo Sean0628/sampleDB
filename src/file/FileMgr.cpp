@@ -5,6 +5,7 @@ using namespace std;
 
 FileMgr::FileMgr(string dbDirectory, int blocksize) {
   _blocksize = blocksize;
+  _dbDirectory = dbDirectory;
   filesystem::directory_entry dir(dbDirectory);
 
   _isNew = !dir.exists();
@@ -91,8 +92,6 @@ shared_ptr<fstream> FileMgr::getFile(const string& fileName) {
     fileIO->close();
     fileIO->open(path.string(), ios::binary | ios::in | ios::out);
 
-    cout << (path.string()) << endl;
-    cout << (!fileIO->is_open()) << endl;
     if (!fileIO->is_open()) exit(1);
   }
 
