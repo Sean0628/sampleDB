@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+#include <memory>
+#include <cstring>
 
 using namespace std;
 
