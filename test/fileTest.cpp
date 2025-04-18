@@ -2,10 +2,10 @@
 #include "catch.hpp"
 
 #include <string>
-#include "app/SampleDB.cpp"
-#include "file/BlockId.cpp"
-#include "file/FileMgr.cpp"
-#include "file/Page.cpp"
+#include "app/SampleDB.h"
+#include "file/BlockId.h"
+#include "file/FileMgr.h"
+#include "file/Page.h"
 
 std::pair<std::string, int> writeThenReadBack(
   const std::string& dbName,
