@@ -17,7 +17,7 @@ vector<char> Page::getBytes(int offset) {
   return byte_vector;
 }
 
-void Page::setBytes(int offset, vector<char>& b) {
+void Page::setBytes(int offset, const vector<char>& b) {
   int len = b.size();
   if (offset + sizeof(int) + len > (*_bb).size()) exit(1);
 

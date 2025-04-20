@@ -11,8 +11,11 @@ namespace file {
   class Page {
     public:
       Page(int blocksize);
+      Page(std::shared_ptr<vector<char>>& byte_buffer) {
+        _bb = byte_buffer;
+      }
       vector<char> getBytes(int offset);
-      void setBytes(int offset, vector<char>& b);
+      void setBytes(int offset, const vector<char>& b);
       string getString(int offset);
       void setString(int offset, string s);
       int getInt(int offset);
