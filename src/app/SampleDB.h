@@ -4,15 +4,17 @@
 #include <filesystem>
 #include <iostream>
 #include "file/FileMgr.h"
-
-using namespace std;
+#include "file/LogMgr.h"
 
 namespace app {
   class SampleDB {
     public:
-      SampleDB(string dirname, int blocksize, int buffsize);
+      SampleDB(std::string dirname, int blocksize, int buffsize);
       file::FileMgr& fileMgr();
+      file::LogMgr& logMgr();
     private:
-      unique_ptr<file::FileMgr> _fm;
+      std::unique_ptr<file::FileMgr> _fm;
+      std::unique_ptr<file::LogMgr> _lm;
+      static const std::string LOGFILE;
   };
 }

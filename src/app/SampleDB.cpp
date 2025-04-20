@@ -3,9 +3,12 @@
 using namespace app;
 using namespace std;
 
+const string SampleDB::LOGFILE = "sampledb.log";
+
 SampleDB::SampleDB(string dirname, int blocksize, int buffsize) {
   auto path = filesystem::current_path() / dirname;
   _fm = make_unique<file::FileMgr>(path, blocksize);
+  _lm = make_unique<file::LogMgr>(*_fm, LOGFILE);
 
   bool isNew = _fm->isNew();
   if (isNew)
@@ -17,4 +20,8 @@ SampleDB::SampleDB(string dirname, int blocksize, int buffsize) {
 
 file::FileMgr& SampleDB::fileMgr() {
   return *_fm;
+}
+
+file::LogMgr& SampleDB::logMgr() {
+  return *_lm;
 }
