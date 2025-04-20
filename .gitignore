@@ -33,4 +33,5 @@
 
 /build/
 /filetest/testfile
+/logtest/*
 

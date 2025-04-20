@@ -15,6 +15,9 @@ std::pair<std::string, int> writeThenReadBack(
   const std::string& valueStr,
   int valueInt
 ) {
+  // Ensure clean test run every time
+  std::filesystem::remove_all(dbName);
+
   app::SampleDB db(dbName, 400, 8);
   file::FileMgr& fm = db.fileMgr();
   file::BlockId blk(fileName, blockNum);
