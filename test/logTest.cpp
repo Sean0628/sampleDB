@@ -35,9 +35,7 @@ TEST_CASE("LogMgr Integration Test") {
   SECTION("Flush only happens when requested") {
     createRecords(lm, 1, 35);
 
-    // Should only flush internally when the block is full (~20 records)
-    // So LSN may not have been flushed for all
-    REQUIRE(lm.getLastSavedLSN() < 36);
+    REQUIRE(lm.getLastSavedLSN() < 35);
 
     // Manually flush everything
     lm.flush(35);
