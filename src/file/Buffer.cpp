@@ -18,7 +18,7 @@ int file::Buffer::modifyingTx() {
   return _txnum;
 }
 
-void file::Buffer::assignToBlock(file::BlockId& blk) {
+void file::Buffer::assignToBlock(const file::BlockId& blk) {
   flush();
   _blk = blk;
   _fileMgr.read(_blk, *_page);

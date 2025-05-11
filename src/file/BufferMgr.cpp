@@ -30,7 +30,7 @@ void file::BufferMgr::unpin(Buffer& buff) {
     }
 }
 
-file::Buffer* file::BufferMgr::pin(BlockId& blk) {
+file::Buffer* file::BufferMgr::pin(const BlockId& blk) {
     std::unique_lock<std::mutex> lock(_mutex);
     auto start = std::chrono::steady_clock::now();
 
@@ -53,7 +53,7 @@ bool file::BufferMgr::waitingTooLong(std::chrono::steady_clock::time_point start
     return duration.count() > MAX_TIME;
 }
 
-file::Buffer* file::BufferMgr::tryToPin(BlockId& blk) {
+file::Buffer* file::BufferMgr::tryToPin(const BlockId& blk) {
   Buffer* buffer = findExistingBuffer(blk);
   if (!buffer) {
     buffer = chooseUnpinnedBuffer();
@@ -70,7 +70,7 @@ file::Buffer* file::BufferMgr::tryToPin(BlockId& blk) {
   return buffer;
 }
 
-file::Buffer* file::BufferMgr::findExistingBuffer(BlockId& blk) {
+file::Buffer* file::BufferMgr::findExistingBuffer(const BlockId& blk) {
     for (auto& buffer : _bufferpool) {
         if (buffer->block().equals(blk)) {
             return buffer.get();
