@@ -16,7 +16,7 @@ TEST_CASE("Transaction operations work correctly", "[Transaction]") {
 
   file::FileMgr fm(path, blockSize);
   file::LogMgr lm(fm, logFileName);
-  file::BufferMgr bm(fm, lm, 16);
+  file::BufferMgr bm(fm, lm, 8);
 
   file::BlockId blk("testfile", 1);
 
