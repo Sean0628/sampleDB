@@ -19,7 +19,7 @@ namespace file {
       void setModified(int txnum, int lsn);
       bool isPinned();
       int modifyingTx();
-      void assignToBlock(file::BlockId& blk);
+      void assignToBlock(const file::BlockId& blk);
       void flush();
       void pin();
       void unpin();

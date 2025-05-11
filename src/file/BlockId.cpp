@@ -1,29 +1,38 @@
 #include "file/BlockId.h"
 
-using namespace file;
 using namespace std;
 
-BlockId::BlockId(string filename, int blknum) {
-  _filename = filename;
-  _blknum = blknum;
-}
+namespace file {
+  BlockId::BlockId(string filename, int blknum) {
+    _filename = filename;
+    _blknum = blknum;
+  }
 
-string BlockId::fileName() {
-  return _filename;
-}
+  bool operator==(const file::BlockId& lhs, const file::BlockId& rhs) {
+    return lhs.fileName() == rhs.fileName() && lhs.number() == rhs.number();
+  }
 
-int BlockId::number() {
-  return _blknum;
-}
+  bool operator<(const file::BlockId& lhs, const file::BlockId& rhs) {
+    return lhs.fileName() == rhs.fileName() ? lhs.number() < rhs.number() : lhs.fileName() < rhs.fileName();
+  }
 
-bool BlockId::equals(const BlockId& bi) {
-  return _filename.compare(bi._filename) == 0 && (_blknum == bi._blknum);
-}
+  string BlockId::fileName() const{
+    return _filename;
+  }
 
-string BlockId::toString() {
-  return "[file " + _filename + ", block " + to_string(_blknum) + "]";
-}
+  int BlockId::number() const {
+    return _blknum;
+  }
 
-int BlockId::hashCode() {
-  return hash<string>{}(toString());
+  bool BlockId::equals(const BlockId& bi) {
+    return _filename.compare(bi._filename) == 0 && (_blknum == bi._blknum);
+  }
+
+  string BlockId::toString() const {
+    return "[file " + _filename + ", block " + to_string(_blknum) + "]";
+  }
+
+  int BlockId::hashCode() {
+    return hash<string>{}(toString());
+  }
 }

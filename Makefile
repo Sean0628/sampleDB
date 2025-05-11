@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -I./src -I./test
-SRC = $(wildcard src/app/*.cpp src/file/*.cpp)
+SRC = $(wildcard src/app/*.cpp src/file/*.cpp src/tx/*.cpp src/tx/LogRecord/*.cpp)
 TESTS = $(wildcard test/*.cpp)
 OUT = build/test_runner
 

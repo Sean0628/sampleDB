@@ -16,7 +16,7 @@ namespace file {
       int available();
       void flushAll(int txnum);
       void unpin(Buffer& buff);
-      Buffer* pin(BlockId& blk);
+      Buffer* pin(const BlockId& blk);
     private:
       const int MAX_TIME = 10000; // 10 seconds
       std::vector<std::unique_ptr<Buffer>> _bufferpool;
@@ -24,8 +24,8 @@ namespace file {
       std::mutex _mutex;
       std::condition_variable _cv;
       bool waitingTooLong(std::chrono::steady_clock::time_point start);
-      Buffer* tryToPin(BlockId& blk);
-      Buffer* findExistingBuffer(BlockId& blk);
+      Buffer* tryToPin(const BlockId& blk);
+      Buffer* findExistingBuffer(const BlockId& blk);
       Buffer* chooseUnpinnedBuffer();
   };
 }
