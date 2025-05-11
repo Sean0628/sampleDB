@@ -1,5 +1,5 @@
 #include <vector>
-#include "tx/LogRecord/CheckpointRecord.h"
+#include "tx/LogRecord/CheckPointRecord.h"
 
 namespace tx {
   CheckpointRecord::CheckpointRecord() : LogRecord() { }
