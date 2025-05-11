@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "tx/LockTable.h"
 
 namespace tx {
