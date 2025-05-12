@@ -1,27 +1,26 @@
 #include "app/SampleDB.h"
 
-using namespace app;
-using namespace std;
+namespace app {
+  const std::string SampleDB::LOGFILE = "sampledb.log";
 
-const string SampleDB::LOGFILE = "sampledb.log";
+  SampleDB::SampleDB(std::string dirname, int blocksize, int buffsize) {
+    auto path = std::filesystem::current_path() / dirname;
+    _fm = std::make_unique<file::FileMgr>(path, blocksize);
+    _lm = std::make_unique<logging::LogMgr>(*_fm, LOGFILE);
 
-SampleDB::SampleDB(string dirname, int blocksize, int buffsize) {
-  auto path = filesystem::current_path() / dirname;
-  _fm = make_unique<file::FileMgr>(path, blocksize);
-  _lm = make_unique<file::LogMgr>(*_fm, LOGFILE);
-
-  bool isNew = _fm->isNew();
-  if (isNew)
-    cout << "creating new database" << endl;
-  else {
-    cout << "recovering existing database" << endl;
+    bool isNew = _fm->isNew();
+    if (isNew)
+      std::cout << "creating new database" << std::endl;
+    else {
+      std::cout << "recovering existing database" << std::endl;
+    }
   }
-}
 
-file::FileMgr& SampleDB::fileMgr() {
-  return *_fm;
-}
+  file::FileMgr& SampleDB::fileMgr() {
+    return *_fm;
+  }
 
-file::LogMgr& SampleDB::logMgr() {
-  return *_lm;
+  logging::LogMgr& SampleDB::logMgr() {
+    return *_lm;
+  }
 }

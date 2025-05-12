@@ -2,8 +2,6 @@
 
 #include <string>
 
-using namespace std;
-
 namespace file {
   class BlockId {
     public:
@@ -11,14 +9,14 @@ namespace file {
       friend bool operator<(const BlockId& lhs, const BlockId& rhs);
 
       BlockId() {};
-      BlockId(string filename, int blknum);
-      string fileName() const;
+      BlockId(std::string filename, int blknum);
+      std::string fileName() const;
       int number() const;
       bool equals(const BlockId& bi);
-      string toString() const;
+      std::string toString() const;
       int hashCode();
     private:
-      string _filename;
+      std::string _filename;
       int _blknum;
   };
 }

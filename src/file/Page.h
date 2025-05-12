@@ -5,24 +5,22 @@
 #include <memory>
 #include <cstring>
 
-using namespace std;
-
 namespace file {
   class Page {
     public:
       Page(int blocksize);
-      Page(std::shared_ptr<vector<char>>& byte_buffer) {
+      Page(std::shared_ptr<std::vector<char>>& byte_buffer) {
         _bb = byte_buffer;
       }
-      vector<char> getBytes(int offset);
-      void setBytes(int offset, const vector<char>& b);
-      string getString(int offset);
-      void setString(int offset, string s);
+      std::vector<char> getBytes(int offset);
+      void setBytes(int offset, const std::vector<char>& b);
+      std::string getString(int offset);
+      void setString(int offset, std::string s);
       int getInt(int offset);
       void setInt(int offset, int n);
       static int maxLength(int strlen);
-      shared_ptr<vector<char>> contents();
+      std::shared_ptr<std::vector<char>> contents();
     private:
-      shared_ptr<vector<char>> _bb;
+      std::shared_ptr<std::vector<char>> _bb;
   };
 }

@@ -7,14 +7,14 @@
 #include "file/FileMgr.h"
 #include "file/BlockId.h"
 #include "file/Page.h"
-#include "file/LogIterator.h"
+#include "logging/LogIterator.h"
 
-namespace file {
+namespace logging {
   class LogMgr {
     public:
       LogMgr(file::FileMgr& fileMgr, const std::string& logFileName);
       void flush(int lsn);
-      file::LogIterator iterator();
+      logging::LogIterator iterator();
       int append(const std::vector<char>& logRec);
       int getLastSavedLSN() const { return _lastSaveLsn; }
     private:

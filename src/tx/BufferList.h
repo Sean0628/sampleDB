@@ -4,20 +4,20 @@
 #include <vector>
 #include <map>
 #include "file/BlockId.h"
-#include "file/Buffer.h"
-#include "file/BufferMgr.h"
+#include "buffer/Buffer.h"
+#include "buffer/BufferMgr.h"
 
 namespace tx {
   class BufferList {
     public:
-      BufferList(file::BufferMgr& bm) : _bm(bm) {}
-      file::Buffer& getBuffer(const file::BlockId& blkId);
+      BufferList(buffer::BufferMgr& bm) : _bm(bm) {}
+      buffer::Buffer& getBuffer(const file::BlockId& blkId);
       void pin(const file::BlockId& blkId);
       void unpin(const file::BlockId& blkId);
       void unpinAll();
     private:
-      file::BufferMgr& _bm;
+      buffer::BufferMgr& _bm;
       std::vector<file::BlockId> _pinned;
-      std::map<file::BlockId, file::Buffer*> _buffers;
+      std::map<file::BlockId, buffer::Buffer*> _buffers;
   };
 }

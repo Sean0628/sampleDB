@@ -3,8 +3,8 @@
 #include "file/BlockId.h"
 #include "file/Page.h"
 #include "file/FileMgr.h"
-#include "file/LogMgr.h"
-#include "file/BufferMgr.h"
+#include "logging/LogMgr.h"
+#include "buffer/BufferMgr.h"
 #include "tx/Transaction.h"
 
 TEST_CASE("Transaction operations work correctly", "[Transaction]") {
@@ -15,8 +15,8 @@ TEST_CASE("Transaction operations work correctly", "[Transaction]") {
   auto path = std::filesystem::current_path() / fileName;
 
   file::FileMgr fm(path, blockSize);
-  file::LogMgr lm(fm, logFileName);
-  file::BufferMgr bm(fm, lm, 8);
+  logging::LogMgr lm(fm, logFileName);
+  buffer::BufferMgr bm(fm, lm, 8);
 
   file::BlockId blk("testfile", 1);
 

@@ -4,12 +4,12 @@
 #include "file/FileMgr.h"
 #include "file/BlockId.h"
 #include "file/Page.h"
-#include "file/LogMgr.h"
+#include "logging/LogMgr.h"
 
-namespace file {
+namespace buffer {
   class Buffer {
     public:
-      Buffer(file::FileMgr& fileMgr, file::LogMgr& logMgr);
+      Buffer(file::FileMgr& fileMgr, logging::LogMgr& logMgr);
       file::Page* contents() {
         return _page.get();
       }
@@ -25,7 +25,7 @@ namespace file {
       void unpin();
     private:
       file::FileMgr& _fileMgr;
-      file::LogMgr& _logMgr;
+      logging::LogMgr& _logMgr;
       std::unique_ptr<file::Page> _page;
       file::BlockId _blk;
       int _pins = 0;

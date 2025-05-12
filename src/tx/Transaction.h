@@ -6,14 +6,14 @@
 #include "tx/BufferList.h"
 #include "tx/ConcurrencyMgr.h"
 #include "tx/RecoveryMgr.h"
-#include "file/BufferMgr.h"
+#include "buffer/BufferMgr.h"
 #include "file/FileMgr.h"
-#include "file/LogMgr.h"
+#include "logging/LogMgr.h"
 
 namespace tx {
   class Transaction {
     public:
-      Transaction(file::FileMgr& fm, file::LogMgr& lm, file::BufferMgr& bm);
+      Transaction(file::FileMgr& fm, logging::LogMgr& lm, buffer::BufferMgr& bm);
       void commit();
       void rollback();
       void recover();
@@ -35,8 +35,8 @@ namespace tx {
       std::unique_ptr<RecoveryMgr> _recoveryMgr;
       std::unique_ptr<ConcurrencyMgr> _concurrencyMgr;
       file::FileMgr& _fm;
-      file::LogMgr& _lm;
-      file::BufferMgr& _bm;
+      logging::LogMgr& _lm;
+      buffer::BufferMgr& _bm;
       int _txNum;
       std::unique_ptr<BufferList> _buffers;
       static std::mutex _mutex;

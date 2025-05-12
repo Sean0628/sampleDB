@@ -6,9 +6,9 @@
 #include "file/BlockId.h"
 #include "file/Page.h"
 #include "file/FileMgr.h"
-#include "file/LogMgr.h"
-#include "file/Buffer.h"
-#include "file/BufferMgr.h"
+#include "logging/LogMgr.h"
+#include "buffer/Buffer.h"
+#include "buffer/BufferMgr.h"
 
 TEST_CASE("Buffer Manager Integration Test", "[BufferTest]") {
   std::string file_name = "bufferTest";
@@ -19,12 +19,12 @@ TEST_CASE("Buffer Manager Integration Test", "[BufferTest]") {
   int buffer_size = 3;
 
   file::FileMgr fm(file_name, block_size);
-  file::LogMgr lm(fm, log_file_name);
-  file::BufferMgr bm(fm, lm, buffer_size);
+  logging::LogMgr lm(fm, log_file_name);
+  buffer::BufferMgr bm(fm, lm, buffer_size);
 
   SECTION("Basic Buffer Pinning and Flushing") {
     file::BlockId block_id1("testfile", 1);
-    file::Buffer* buff1 = bm.pin(block_id1);
+    buffer::Buffer* buff1 = bm.pin(block_id1);
 
     REQUIRE(buff1 != nullptr);
 
@@ -40,9 +40,9 @@ TEST_CASE("Buffer Manager Integration Test", "[BufferTest]") {
     file::BlockId block_id4("testfile", 4);
 
     // One of these pins will force buff1 to flush to disk
-    file::Buffer* buff2 = bm.pin(block_id2);
-    file::Buffer* buff3 = bm.pin(block_id3);
-    file::Buffer* buff4 = bm.pin(block_id4);
+    buffer::Buffer* buff2 = bm.pin(block_id2);
+    buffer::Buffer* buff3 = bm.pin(block_id3);
+    buffer::Buffer* buff4 = bm.pin(block_id4);
 
     REQUIRE(buff2 != nullptr);
     REQUIRE(buff3 != nullptr);

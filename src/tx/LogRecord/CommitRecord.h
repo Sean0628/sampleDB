@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include "file/Page.h"
-#include "file/LogMgr.h"
+#include "logging/LogMgr.h"
 #include "tx/Transaction.h"
 #include "tx/LogRecord/LogRecord.h"
 
@@ -17,7 +17,7 @@ namespace tx {
         return "<COMMIT, " + std::to_string(_txNum) + ">";
       }
       void undo(Transaction& tx) override { return; }
-      static int writeToLog(file::LogMgr& lm, int txNum);
+      static int writeToLog(logging::LogMgr& lm, int txNum);
     private:
       int _txNum;
   };

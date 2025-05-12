@@ -10,7 +10,7 @@
 #include "tx/LogRecord/CheckPointRecord.h"
 
 namespace tx {
-  RecoveryMgr::RecoveryMgr(Transaction& tx, int txNum, file::LogMgr& lm, file::BufferMgr& bm)
+  RecoveryMgr::RecoveryMgr(Transaction& tx, int txNum, logging::LogMgr& lm, buffer::BufferMgr& bm)
     : _tx(tx), _txNum(txNum), _lm(lm), _bm(bm) {
     StartRecord::writeToLog(_lm, _txNum);
   }
@@ -34,13 +34,13 @@ namespace tx {
     _lm.flush(lsn);
   }
 
-  int RecoveryMgr::setInt(file::Buffer& buf, int offset, int val) {
+  int RecoveryMgr::setInt(buffer::Buffer& buf, int offset, int val) {
     int oldVal = buf.contents()->getInt(offset);
     file::BlockId blkId = buf.block();
     return SetIntRecord::writeToLog(_lm, _txNum, blkId, offset, oldVal);
   }
 
-  int RecoveryMgr::setString(file::Buffer& buf, int offset, const std::string& val) {
+  int RecoveryMgr::setString(buffer::Buffer& buf, int offset, const std::string& val) {
     std::string oldVal = buf.contents()->getString(offset);
     file::BlockId blkId = buf.block();
     return SetStringRecord::writeToLog(_lm, _txNum, blkId, offset, oldVal);

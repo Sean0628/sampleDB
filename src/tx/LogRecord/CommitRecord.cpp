@@ -7,7 +7,7 @@ namespace tx {
     _txNum = p->getInt(tpos);
   }
 
-  int CommitRecord::writeToLog(file::LogMgr& lm, int txNum) {
+  int CommitRecord::writeToLog(logging::LogMgr& lm, int txNum) {
     int tpos = sizeof(int);
     int recSize = tpos + sizeof(int);
     auto bytes = std::make_shared<std::vector<char>>(recSize, 0);

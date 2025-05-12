@@ -3,12 +3,12 @@
 #include "BufferList.h"
 
 namespace tx {
-  file::Buffer& BufferList::getBuffer(const file::BlockId& blkId) {
+  buffer::Buffer& BufferList::getBuffer(const file::BlockId& blkId) {
     return *(_buffers[blkId]);
   }
 
   void BufferList::pin(const file::BlockId& blkId) {
-    file::Buffer* buf = _bm.pin(blkId);
+    buffer::Buffer* buf = _bm.pin(blkId);
     _buffers[blkId] = buf;
     _pinned.push_back(blkId);
   }
@@ -32,7 +32,7 @@ namespace tx {
 
   void BufferList::unpinAll() {
     for (const auto& blkId : _pinned) {
-      file::Buffer* buf = _buffers[blkId];
+      buffer::Buffer* buf = _buffers[blkId];
       _bm.unpin(*buf);
     }
     _buffers.clear();

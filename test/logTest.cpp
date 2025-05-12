@@ -8,9 +8,9 @@
 #include "file/BlockId.h"
 #include "file/Page.h"
 #include "file/FileMgr.h"
-#include "file/LogMgr.h"
+#include "logging/LogMgr.h"
 
-void createRecords(file::LogMgr& log_manager, int start, int end) {
+void createRecords(logging::LogMgr& log_manager, int start, int end) {
   for (int i = start; i <= end; i++) {
     std::string s = "record" + std::to_string(i);
 
@@ -30,7 +30,7 @@ TEST_CASE("LogMgr Integration Test") {
   std::filesystem::remove_all(file_name);  // Clean start
 
   app::SampleDB db(file_name, 400, 8);
-  file::LogMgr& lm = db.logMgr();
+  logging::LogMgr& lm = db.logMgr();
 
   SECTION("Flush only happens when requested") {
     createRecords(lm, 1, 35);
