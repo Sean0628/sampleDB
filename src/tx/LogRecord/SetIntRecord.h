@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "file/Page.h"
-#include "file/LogMgr.h"
+#include "logging/LogMgr.h"
 #include "file/BlockId.h"
 #include "tx/Transaction.h"
 #include "tx/LogRecord/LogRecord.h"
@@ -17,7 +17,7 @@ namespace tx {
       int txNumber() const override { return _txNum; }
       std::string toString() const override;
       void undo(Transaction& tx) override;
-      static int writeToLog(file::LogMgr& lm, int txNum, file::BlockId& blkId, int offset, int val);
+      static int writeToLog(logging::LogMgr& lm, int txNum, file::BlockId& blkId, int offset, int val);
     private:
       int _txNum;
       file::BlockId _blkId;

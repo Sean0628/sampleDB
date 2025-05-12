@@ -27,7 +27,7 @@ namespace tx {
     tx.unpin(_blkId);
   }
 
-  int SetIntRecord::writeToLog(file::LogMgr& lm, int txNum, file::BlockId& blkId, int offset, int val) {
+  int SetIntRecord::writeToLog(logging::LogMgr& lm, int txNum, file::BlockId& blkId, int offset, int val) {
     int tpos = sizeof(int);
     int fpos = tpos + sizeof(int);
     int bpos = fpos + file::Page::maxLength(blkId.fileName().size());

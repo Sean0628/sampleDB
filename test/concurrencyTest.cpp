@@ -6,11 +6,11 @@
 #include "file/BlockId.h"
 #include "file/Page.h"
 #include "file/FileMgr.h"
-#include "file/LogMgr.h"
-#include "file/BufferMgr.h"
+#include "logging/LogMgr.h"
+#include "buffer/BufferMgr.h"
 #include "tx/Transaction.h"
 
-void runA(file::FileMgr& fm, file::LogMgr& lm, file::BufferMgr& bm) {
+void runA(file::FileMgr& fm, logging::LogMgr& lm, buffer::BufferMgr& bm) {
   try {
     tx::Transaction txA(fm, lm, bm);
     file::BlockId blk1("testfile", 1);
@@ -30,7 +30,7 @@ void runA(file::FileMgr& fm, file::LogMgr& lm, file::BufferMgr& bm) {
   }
 }
 
-void runB(file::FileMgr& fm, file::LogMgr& lm, file::BufferMgr& bm) {
+void runB(file::FileMgr& fm, logging::LogMgr& lm, buffer::BufferMgr& bm) {
   try {
     tx::Transaction txB(fm, lm, bm);
     file::BlockId blk1("testfile", 1);
@@ -50,7 +50,7 @@ void runB(file::FileMgr& fm, file::LogMgr& lm, file::BufferMgr& bm) {
   }
 }
 
-void runC(file::FileMgr& fm, file::LogMgr& lm, file::BufferMgr& bm) {
+void runC(file::FileMgr& fm, logging::LogMgr& lm, buffer::BufferMgr& bm) {
   try {
     tx::Transaction txC(fm, lm, bm);
     file::BlockId blk1("testfile", 1);
@@ -77,8 +77,8 @@ TEST_CASE("Concurrency control under contention", "[Concurrency]") {
   auto path = std::filesystem::current_path() / fileName;
 
   file::FileMgr fm(path, blockSize);
-  file::LogMgr lm(fm, logFileName);
-  file::BufferMgr bm(fm, lm, 8);
+  logging::LogMgr lm(fm, logFileName);
+  buffer::BufferMgr bm(fm, lm, 8);
 
   std::thread t1(runA, std::ref(fm), std::ref(lm), std::ref(bm));
   std::thread t2(runB, std::ref(fm), std::ref(lm), std::ref(bm));

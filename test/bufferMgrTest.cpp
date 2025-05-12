@@ -7,9 +7,9 @@
 #include "file/BlockId.h"
 #include "file/Page.h"
 #include "file/FileMgr.h"
-#include "file/LogMgr.h"
-#include "file/Buffer.h"
-#include "file/BufferMgr.h"
+#include "logging/LogMgr.h"
+#include "buffer/Buffer.h"
+#include "buffer/BufferMgr.h"
 
 TEST_CASE("Buffer Manager Basic Behaviour Test", "[BufferManagerTest]") {
   std::string file_name = "bufferMgrTest";
@@ -20,10 +20,10 @@ TEST_CASE("Buffer Manager Basic Behaviour Test", "[BufferManagerTest]") {
   int buffer_size = 3;
 
   file::FileMgr fm(file_name, block_size);
-  file::LogMgr lm(fm, log_file_name);
-  file::BufferMgr bm(fm, lm, buffer_size);
+  logging::LogMgr lm(fm, log_file_name);
+  buffer::BufferMgr bm(fm, lm, buffer_size);
 
-  std::vector<file::Buffer*> buff(6);
+  std::vector<buffer::Buffer*> buff(6);
   file::BlockId block_id0("testfile", 0);
   file::BlockId block_id1("testfile", 1);
   file::BlockId block_id2("testfile", 2);

@@ -15,7 +15,7 @@ namespace tx {
     void xLock(const file::BlockId& blkId);
     void release();
   private:
-    std::map<file::BlockId, string> _locks;
+    std::map<file::BlockId, std::string> _locks;
     static LockTable _lockTable;
     bool hasXLock(const file::BlockId& blkId);
   };

@@ -5,7 +5,7 @@
 #include "file/FileMgr.h"
 #include "file/BlockId.h"
 
-namespace file {
+namespace logging {
   class LogIterator {
     public:
       LogIterator(file::FileMgr& fileMgr, const file::BlockId& blk);

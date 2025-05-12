@@ -4,7 +4,6 @@
 #include <vector>
 #include <memory>
 #include "file/Page.h"
-#include "file/LogMgr.h"
 #include "tx/Transaction.h"
 
 namespace tx {

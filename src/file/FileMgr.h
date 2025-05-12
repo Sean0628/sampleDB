@@ -9,24 +9,22 @@
 #include "file/BlockId.h"
 #include "file/Page.h"
 
-using namespace std;
-
 namespace file {
   class FileMgr {
     public:
-      FileMgr(string dbDirectory, int blocksize);
+      FileMgr(std::string dbDirectory, int blocksize);
       int blockSize();
       void write(BlockId& blk, Page& p);
-      BlockId append(const string& fileName);
+      BlockId append(const std::string& fileName);
       void read(BlockId& blk, Page& p);
       bool isNew();
-      int length(const string& fileName);
+      int length(const std::string& fileName);
     private:
-      filesystem::path _dbDirectory;
+      std::filesystem::path _dbDirectory;
       int _blocksize;
-      mutex _mutex;
+      std::mutex _mutex;
       bool _isNew;
-      map<filesystem::path, shared_ptr<fstream>> _openFiles;
-      shared_ptr<fstream> getFile(const string& fileName);
+      std::map<std::filesystem::path, std::shared_ptr<std::fstream>> _openFiles;
+      std::shared_ptr<std::fstream> getFile(const std::string& fileName);
   };
 }

@@ -4,7 +4,7 @@ namespace tx {
   int Transaction::_nextTxNum = 0;
   std::mutex Transaction::_mutex;
 
-  Transaction::Transaction(file::FileMgr& fm, file::LogMgr& lm, file::BufferMgr& bm)
+  Transaction::Transaction(file::FileMgr& fm, logging::LogMgr& lm, buffer::BufferMgr& bm)
     : _fm(fm), _lm(lm), _bm(bm) {
     _txNum = newTransactionNumber();
     _recoveryMgr = std::make_unique<RecoveryMgr>(*this, _txNum, lm, bm);
@@ -41,19 +41,19 @@ namespace tx {
 
   int Transaction::getInt(file::BlockId& blkId, int offset) {
     _concurrencyMgr->sLock(blkId);
-    file::Buffer& buf = _buffers->getBuffer(blkId);
+    buffer::Buffer& buf = _buffers->getBuffer(blkId);
     return buf.contents()->getInt(offset);
   }
 
   std::string Transaction::getString(file::BlockId& blkId, int offset) {
     _concurrencyMgr->sLock(blkId);
-    file::Buffer& buf = _buffers->getBuffer(blkId);
+    buffer::Buffer& buf = _buffers->getBuffer(blkId);
     return buf.contents()->getString(offset);
   }
 
   void Transaction::setInt(const file::BlockId& blkId, int offset, int val, bool okToLog) {
     _concurrencyMgr->xLock(blkId);
-    file::Buffer& buf = _buffers->getBuffer(blkId);
+    buffer::Buffer& buf = _buffers->getBuffer(blkId);
     int lsn = -1;
     if (okToLog) {
       lsn = _recoveryMgr->setInt(buf, offset, val);
@@ -66,7 +66,7 @@ namespace tx {
 
   void Transaction::setString(const file::BlockId& blkId, int offset, const std::string& val, bool okToLog) {
     _concurrencyMgr->xLock(blkId);
-    file::Buffer& buf = _buffers->getBuffer(blkId);
+    buffer::Buffer& buf = _buffers->getBuffer(blkId);
     int lsn = -1;
     if (okToLog) {
       lsn = _recoveryMgr->setString(buf, offset, val);
