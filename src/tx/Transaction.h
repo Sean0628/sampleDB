@@ -19,8 +19,8 @@ namespace tx {
       void recover();
       void pin(const file::BlockId& blkId);
       void unpin(const file::BlockId& blkId);
-      int getInt(file::BlockId& blkId, int offset);
-      std::string getString(file::BlockId& blkId, int offset);
+      int getInt(const file::BlockId& blkId, int offset);
+      std::string getString(const file::BlockId& blkId, int offset);
       void setInt(const file::BlockId& blkId, int offset, int val, bool okToLog = true);
       void setString(const file::BlockId& blkId, int offset, const std::string& val, bool okToLog = true);
       int size(const std::string& fileName);

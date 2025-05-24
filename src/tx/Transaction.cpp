@@ -39,13 +39,13 @@ namespace tx {
     _buffers->unpin(blkId);
   }
 
-  int Transaction::getInt(file::BlockId& blkId, int offset) {
+  int Transaction::getInt(const file::BlockId& blkId, int offset) {
     _concurrencyMgr->sLock(blkId);
     buffer::Buffer& buf = _buffers->getBuffer(blkId);
     return buf.contents()->getInt(offset);
   }
 
-  std::string Transaction::getString(file::BlockId& blkId, int offset) {
+  std::string Transaction::getString(const file::BlockId& blkId, int offset) {
     _concurrencyMgr->sLock(blkId);
     buffer::Buffer& buf = _buffers->getBuffer(blkId);
     return buf.contents()->getString(offset);
