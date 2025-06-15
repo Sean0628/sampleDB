@@ -1,4 +1,3 @@
-#include <iostream>
 #include "meta/TableMgr.h"
 #include "record/TableScan.h"
 
