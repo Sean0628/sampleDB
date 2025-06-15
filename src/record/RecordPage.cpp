@@ -1,4 +1,3 @@
-#include <iostream>
 #include "record/RecordPage.h"
 
 namespace record {

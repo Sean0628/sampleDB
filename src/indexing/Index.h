@@ -1,4 +1,4 @@
-# pragma once
+#pragma once
 
 #include "record/RID.h"
 #include "scan/Constant.h"
