@@ -12,7 +12,7 @@
 #include "record/Schema.h"
 #include "record/Layout.h"
 
-TEST_CASE("Record operations: insert, delete, iterate", "[record]") {
+TEST_CASE("Record operations: insert, delete, iterate", "[RecordTest]") {
   std::string fileName = "recordTest";
   std::string logFileName = "simpledb.log";
 

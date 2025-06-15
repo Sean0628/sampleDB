@@ -1,3 +1,4 @@
+#include <iostream>
 #include "buffer/BufferMgr.h"
 
 namespace buffer {

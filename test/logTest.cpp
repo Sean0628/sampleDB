@@ -10,7 +10,7 @@
 #include "file/FileMgr.h"
 #include "logging/LogMgr.h"
 
-void createRecords(logging::LogMgr& log_manager, int start, int end) {
+void createRecords(logging::LogMgr& lm, int start, int end) {
   for (int i = start; i <= end; i++) {
     std::string s = "record" + std::to_string(i);
 
@@ -21,15 +21,17 @@ void createRecords(logging::LogMgr& log_manager, int start, int end) {
     page.setString(0, s);
     page.setInt(npos, i + 100);
 
-    int lsn = log_manager.append(*rec);
+    int lsn = lm.append(*rec);
   }
 }
 
-TEST_CASE("LogMgr Integration Test") {
-  std::string file_name = "logTest";
-  std::filesystem::remove_all(file_name);  // Clean start
+TEST_CASE("LogMgr Integration Test", "[LogMgr]") {
+  std::string fileName = "logTest";
+  std::filesystem::remove_all(fileName);  // Clean start
 
-  app::SampleDB db(file_name, 400, 8);
+  app::SampleDB db;
+  db.tinySetup(fileName, 400, 8);
+
   logging::LogMgr& lm = db.logMgr();
 
   SECTION("Flush only happens when requested") {

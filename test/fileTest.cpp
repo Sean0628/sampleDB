@@ -7,42 +7,45 @@
 #include "file/FileMgr.h"
 #include "file/Page.h"
 
-std::pair<std::string, int> writeThenReadBack(
-  const std::string& dbName,
-  const std::string& fileName,
-  int blockNum,
-  int pos,
-  const std::string& valueStr,
-  int valueInt
-) {
-  // Ensure clean test run every time
-  std::filesystem::remove_all(dbName);
+namespace {
+  std::pair<std::string, int> writeThenReadBack(
+    const std::string& dbName,
+    const std::string& fileName,
+    int blockNum,
+    int pos,
+    const std::string& valueStr,
+    int valueInt
+  ) {
+    // Ensure clean test run every time
+    std::filesystem::remove_all(dbName);
 
-  app::SampleDB db(dbName, 400, 8);
-  file::FileMgr& fm = db.fileMgr();
-  file::BlockId blk(fileName, blockNum);
+    app::SampleDB db;
+    db.tinySetup(dbName, 400, 8);
+    file::FileMgr& fm = db.fileMgr();
+    file::BlockId blk(fileName, blockNum);
 
-  file::Page p1(fm.blockSize());
-  p1.setString(pos, valueStr);
+    file::Page p1(fm.blockSize());
+    p1.setString(pos, valueStr);
 
-  int pos2 = pos + file::Page::maxLength(valueStr.size());
-  p1.setInt(pos2, valueInt);
+    int pos2 = pos + file::Page::maxLength(valueStr.size());
+    p1.setInt(pos2, valueInt);
 
-  fm.write(blk, p1);
+    fm.write(blk, p1);
 
-  file::Page p2(fm.blockSize());
-  fm.read(blk, p2);
+    file::Page p2(fm.blockSize());
+    fm.read(blk, p2);
 
-  return {p2.getString(pos), p2.getInt(pos2)};
-}
+    return {p2.getString(pos), p2.getInt(pos2)};
+  }
 
-TEST_CASE("String and int values can be written and read back") {
-  std::string str = "abcdefghijklm";
-  int number = 345;
-  int pos = 88;
+  TEST_CASE("String and int values can be written and read back", "[FileTest]") {
+    std::string str = "abcdefghijklm";
+    int number = 345;
+    int pos = 88;
 
-  auto [readStr, readInt] = writeThenReadBack("filetest", "testfile", 2, pos, str, number);
+    auto [readStr, readInt] = writeThenReadBack("fileTest", "testfile", 2, pos, str, number);
 
-  REQUIRE(readStr == str);
-  REQUIRE(readInt == number);
+    REQUIRE(readStr == str);
+    REQUIRE(readInt == number);
+  }
 }
