@@ -1,6 +1,9 @@
 #include "record/Schema.h"
 
 namespace record {
+  const int Schema::INTEGER;
+  const int Schema::VARCHAR;
+
   Schema& Schema::operator=(const Schema& schema) {
     if (this != &schema) {
       _fields = schema._fields;
@@ -23,7 +26,7 @@ namespace record {
     addField(fieldName, VARCHAR, length);
   }
 
-  void Schema::add(const std::string& fieldName, Schema& schema) {
+  void Schema::add(const std::string& fieldName, const Schema& schema) {
     int type = schema.fieldType(fieldName);
     int length = schema.fieldLength(fieldName);
     addField(fieldName, type, length);

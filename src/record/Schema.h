@@ -1,4 +1,4 @@
-# pragma once
+#pragma once
 
 #include <string>
 #include <vector>
@@ -14,7 +14,7 @@ namespace record {
       void addField(const std::string& fieldName, int fieldType, int length);
       void addIntField(const std::string& fieldName);
       void addStringField(const std::string& fieldName, int length);
-      void add(const std::string& fieldName, Schema& schema);
+      void add(const std::string& fieldName, const Schema& schema);
       void addAll(Schema& schema);
       std::vector<std::string> fieldNames() const;
       bool hasField(const std::string& fieldName) const;

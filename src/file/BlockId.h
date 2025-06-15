@@ -13,6 +13,7 @@ namespace file {
       std::string fileName() const;
       int number() const;
       bool equals(const BlockId& bi);
+      bool isNull() const;
       std::string toString() const;
       int hashCode();
     private:

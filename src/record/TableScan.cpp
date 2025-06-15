@@ -1,4 +1,5 @@
 #include <memory>
+
 #include "record/TableScan.h"
 
 namespace record {

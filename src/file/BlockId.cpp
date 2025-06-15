@@ -26,6 +26,10 @@ namespace file {
     return _filename.compare(bi._filename) == 0 && (_blknum == bi._blknum);
   }
 
+  bool BlockId::isNull() const {
+    return _filename.empty();
+  }
+
   std::string BlockId::toString() const {
     return "[file " + _filename + ", block " + std::to_string(_blknum) + "]";
   }
