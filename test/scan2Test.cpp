@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "tx/transaction.h"
+#include "tx/Transaction.h"
 #include "record/Schema.h"
 #include "record/Layout.h"
 #include "record/TableScan.h"
