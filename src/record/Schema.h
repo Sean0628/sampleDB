@@ -15,7 +15,7 @@ namespace record {
       void addIntField(const std::string& fieldName);
       void addStringField(const std::string& fieldName, int length);
       void add(const std::string& fieldName, const Schema& schema);
-      void addAll(Schema& schema);
+      void addAll(const Schema& schema);
       std::vector<std::string> fieldNames() const;
       bool hasField(const std::string& fieldName) const;
       int fieldType(const std::string& fieldName) const;

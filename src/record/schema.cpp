@@ -32,7 +32,7 @@ namespace record {
     addField(fieldName, type, length);
   }
 
-  void Schema::addAll(Schema& schema) {
+  void Schema::addAll(const Schema& schema) {
     for (const auto& fieldName : schema.fieldNames()) {
       add(fieldName, schema);
     }
