@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 
-#include "scan/constant.h"
+#include "scan/Constant.h"
 #include "scan/UpdateScan.h"
 #include "scan/Scan.h"
 #include "scan/Predicate.h"
