@@ -12,8 +12,8 @@
 #include "scan/ProjectScan.h"
 #include "scan/SelectScan.h"
 
-TEST_CASE("ScanTest1 Main", "[ScanTest1]") {
-  std::string fileName = "scanTest1";
+TEST_CASE("Scan1Test Main", "[Scan1Test]") {
+  std::string fileName = "scan1Test";
   app::SampleDB db;
   db.tinySetup(fileName, 400, 8);
   auto transaction = db.newTransaction();
