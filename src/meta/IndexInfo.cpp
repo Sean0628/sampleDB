@@ -24,12 +24,12 @@ namespace meta {
 
   int IndexInfo::blocksAccessed() const {
     int rpb = _tx->blockSize() / _layout.slotSize();
-    int numBlocks = _statInfo.recordOutput() / rpb;
+    int numBlocks = _statInfo.recordsOutput() / rpb;
     return indexing::BTreeIndex::searchCost(numBlocks, rpb);
   }
 
-  int IndexInfo::recordOutput() const {
-    return _statInfo.recordOutput() / _statInfo.distinctValues(_fieldName);
+  int IndexInfo::recordsOutput() const {
+    return _statInfo.recordsOutput() / _statInfo.distinctValues(_fieldName);
   }
 
   int IndexInfo::distinctValues(const std::string& fieldName) const {

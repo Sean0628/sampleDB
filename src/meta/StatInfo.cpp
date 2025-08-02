@@ -10,7 +10,7 @@ namespace meta {
     return _numBlocks;
   }
 
-  int StatInfo::recordOutput() const {
+  int StatInfo::recordsOutput() const {
     return _numRecords;
   }
 

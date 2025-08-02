@@ -11,7 +11,7 @@ namespace plan {
     public:
       virtual ~Plan() = default;
       virtual std::shared_ptr<scan::Scan> open() = 0;
-      virtual int blockAccess(const std::string& fieldName) const = 0;
+      virtual int blocksAccessed() const = 0;
       virtual int recordsOutput() const = 0;
       virtual int distinctValues(const std::string& fieldName) const = 0;
       virtual record::Schema schema() const = 0;
