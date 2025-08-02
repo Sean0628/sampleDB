@@ -44,7 +44,7 @@ namespace parse {
       result += field + Word::COMMA + Word::SPACE;
     }
     result = result.substr(0, result.size() - 2); // Remove last comma and space
-                                                  //
+
     result += Word::SPACE + Word::FROM + Word::SPACE;
     for (const auto& table : _tables) {
       result += table + Word::COMMA + Word::SPACE;

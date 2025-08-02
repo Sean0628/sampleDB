@@ -38,7 +38,7 @@ namespace parse {
   }
 
   scan::Predicate Parser::predicate() const {
-    scan::Predicate pred;
+    scan::Predicate pred(term());
     if (_lexer->matchKeyword(Word::AMPERSAND)) {
       _lexer->eatKeyword(Word::AMPERSAND);
       pred.conjoinWith(predicate());
@@ -49,26 +49,26 @@ namespace parse {
 
   QueryData Parser::query() const {
     _lexer->eatKeyword(Word::SELECT);
-      std::vector<std::string> fields = selectList();
+    std::vector<std::string> fields = selectList();
 
-      _lexer->eatKeyword(Word::FROM);
-      TableData tableData = tableList();
+    _lexer->eatKeyword(Word::FROM);
+    TableData tableData = tableList();
 
-      scan::Predicate pred;
-      if (_lexer->matchKeyword(Word::WHERE)) {
-        _lexer->eatKeyword(Word::WHERE);
-        pred = predicate();
-      }
+    scan::Predicate pred;
+    if (_lexer->matchKeyword(Word::WHERE)) {
+      _lexer->eatKeyword(Word::WHERE);
+      pred = predicate();
+    }
 
-      std::vector<std::string> groupFields = groupFieldList();
-      std::vector<std::string> sortFields = sortFieldList();
+    std::vector<std::string> groupFields = groupFieldList();
+    std::vector<std::string> sortFields = sortFieldList();
 
-      QueryData queryData(fields, tableData.getTableNames(), pred, groupFields, sortFields);
-      for (const auto& qd : tableData.getQueryDataList()) {
-        queryData.addQueryData(qd);
-      }
+    QueryData queryData(fields, tableData.getTableNames(), pred, groupFields, sortFields);
+    for (const auto& qd : tableData.getQueryDataList()) {
+      queryData.addQueryData(qd);
+    }
 
-      return queryData;
+    return queryData;
   }
 
   std::vector<std::string> Parser::selectList() const {

@@ -8,7 +8,7 @@ namespace meta {
       StatInfo();
       StatInfo(int numBlocks, int numRecords);
       int blocksAccessed() const;
-      int recordOutput() const;
+      int recordsOutput() const;
       int distinctValues(const std::string& fieldName) const;
     private:
       int _numBlocks;

@@ -15,7 +15,7 @@ namespace meta {
       IndexInfo(const std::string& indexName, const std::string& fieldName, const record::Schema& schema, tx::Transaction* tx, const StatInfo& statInfo);
       std::shared_ptr<indexing::Index> open();
       int blocksAccessed() const;
-      int recordOutput() const;
+      int recordsOutput() const;
       int distinctValues(const std::string& fieldName) const;
       bool isNull() const;
     private:

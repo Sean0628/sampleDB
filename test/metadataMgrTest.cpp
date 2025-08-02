@@ -73,11 +73,11 @@ TEST_CASE("MetaDataMgr supports table, stats, view, and index metadata", "[MetaD
     meta::StatInfo si = mdm.getStatInfo(tableName, layout, *tx);
 
     std::cout << "B(" << tableName << ") = " << si.blocksAccessed() << std::endl;
-    std::cout << "R(" << tableName << ") = " << si.recordOutput() << std::endl;
+    std::cout << "R(" << tableName << ") = " << si.recordsOutput() << std::endl;
     std::cout << "V(" << tableName << ", A) = " << si.distinctValues("A") << std::endl;
     std::cout << "V(" << tableName << ", B) = " << si.distinctValues("B") << std::endl;
 
-    REQUIRE(si.recordOutput() == 50);
+    REQUIRE(si.recordsOutput() == 50);
     REQUIRE(si.distinctValues("A") == 1 + (50 / 3)); // 17 distinct values for A
     REQUIRE(si.distinctValues("B") == 1 + (50 / 3)); // 17 distinct values for B
   }
@@ -111,13 +111,13 @@ TEST_CASE("MetaDataMgr supports table, stats, view, and index metadata", "[MetaD
 
     const meta::IndexInfo& iiA = idxmap.at("A");
     std::cout << "IndexA: B=" << iiA.blocksAccessed() << std::endl;
-    std::cout << "IndexA: R=" << iiA.recordOutput() << std::endl;
+    std::cout << "IndexA: R=" << iiA.recordsOutput() << std::endl;
     std::cout << "IndexA: V(A)=" << iiA.distinctValues("A") << std::endl;
     std::cout << "IndexA: V(B)=" << iiA.distinctValues("B") << std::endl;
 
     const meta::IndexInfo& iiB = idxmap.at("B");
     std::cout << "IndexB: B=" << iiB.blocksAccessed() << std::endl;
-    std::cout << "IndexB: R=" << iiB.recordOutput() << std::endl;
+    std::cout << "IndexB: R=" << iiB.recordsOutput() << std::endl;
     std::cout << "IndexB: V(A)=" << iiB.distinctValues("A") << std::endl;
     std::cout << "IndexB: V(B)=" << iiB.distinctValues("B") << std::endl;
   }
