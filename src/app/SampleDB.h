@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <iostream>
 #include "file/FileMgr.h"
+#include "indexing/IndexUpdatePlanner.h"
 #include "logging/LogMgr.h"
 #include "buffer/BufferMgr.h"
 #include "tx/Transaction.h"
@@ -11,7 +12,6 @@
 #include "plan/Planner.h"
 #include "plan/BasicQueryPlanner.h"
 #include "plan/UpdatePlanner.h"
-#include "plan/BasicUpdatePlanner.h"
 
 namespace app {
   class SampleDB {
@@ -24,6 +24,7 @@ namespace app {
       file::FileMgr& fileMgr();
       logging::LogMgr& logMgr();
       buffer::BufferMgr& bufferMgr();
+      meta::MetaDataMgr& getMetaDataManager();
       plan::Planner& getPlanner();
       std::unique_ptr<tx::Transaction> newTransaction();
     private:

@@ -89,7 +89,7 @@ namespace indexing {
 
   // Method called only from BTreeLeaf
   record::RID BTreePage::getDataRid(int slot) const {
-    return record::RID(getInt(slot, "block"), getInt(slot, "slot"));
+    return record::RID(getInt(slot, "block"), getInt(slot, "id"));
   }
 
   void BTreePage::insertLeaf(int slot, const scan::Constant& dataval, const record::RID& datarid) {

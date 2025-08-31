@@ -22,7 +22,7 @@ namespace app {
 
     _mdm = std::make_unique<meta::MetaDataMgr>(isNew, *txPtr);
     auto qp = std::make_unique<plan::BasicQueryPlanner>(_mdm.get());
-    auto up = std::make_unique<plan::BasicUpdatePlanner>(_mdm.get());
+    auto up = std::make_unique<indexing::IndexUpdatePlanner>(_mdm.get());
     _planner = std::make_unique<plan::Planner>(std::move(qp), std::move(up));
     txPtr->commit();
   }
@@ -48,6 +48,10 @@ namespace app {
 
   buffer::BufferMgr& SampleDB::bufferMgr() {
     return *_bm;
+  }
+
+  meta::MetaDataMgr& SampleDB::getMetaDataManager() {
+    return *_mdm;
   }
 
   plan::Planner& SampleDB::getPlanner() {
