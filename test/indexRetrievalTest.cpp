@@ -11,7 +11,7 @@
 #include "interface/Statement.h"
 #include "interface/ResultSet.h"
 #include "plan/Plan.h"
-#include "plan/Tableplan.h"
+#include "plan/TablePlan.h"
 #include "plan/Planner.h"
 #include "scan/Scan.h"
 #include "tx/Transaction.h"
