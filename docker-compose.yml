@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    working_dir: /sampleDB
     volumes:
       - type: bind
         source: .
