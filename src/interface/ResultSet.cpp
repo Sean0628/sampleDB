@@ -1,7 +1,16 @@
 #include "interface/ResultSet.h"
 
 namespace interface {
-  ResultSet::ResultSet(plan::Plan* plan, Connection* connection) : _scan(plan->open()), _schema(plan->schema()), _connection(connection) {}
+  ResultSet::ResultSet(plan::Plan* plan, Connection* connection) : _connection(connection) {
+    if (!plan) throw std::runtime_error("ResultSet: null Plan*");
+
+    // Force a schema() call first — if any pure-virtual/signature issue exists,
+    // it will blow here with a clear stack.
+    _schema = plan->schema();
+    // Then open; if open() returns nullptr or throws, you'll see it clearly.
+    _scan = plan->open();
+    if (!_scan) throw std::runtime_error("ResultSet: Plan::open() returned null Scan");
+  }
 
   bool ResultSet::next() {
     try {
