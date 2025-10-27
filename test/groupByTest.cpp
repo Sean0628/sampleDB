@@ -6,7 +6,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "app/Sampledb.h"
+#include "app/SampleDB.h"
 #include "interface/Connection.h"
 #include "interface/Driver.h"
 #include "interface/Statement.h"
