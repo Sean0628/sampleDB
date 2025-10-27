@@ -1,10 +1,17 @@
 # sampleDB
-## Usage
+## Usage (Run in Docker)
+### 1. Build and enter the container
 ```sh
-$ docker-compose run app bash
+$ docker-compose run --rm app bash
+```
 
-root@c145e06053c7:/# cd /sampleDB
-root@c145e06053c7:/sampleDB# g++ -I./src ./src/main.cpp -o main
-root@c145e06053c7:/sampleDB# ./main
-Hello World!
+### 2. Build and run all tests
+```sh
+$ make run
+```
+This compiles all source and test files into `build/test_runner` and executes them.
+
+### 3. Clean up build artifacts
+```sh
+$ make clean
 ```
