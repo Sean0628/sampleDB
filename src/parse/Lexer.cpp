@@ -1,6 +1,13 @@
 #include "parse/Lexer.h"
 
 namespace parse {
+  static std::string unquote(const std::string& str) {
+    if (str.length() >= 2 && str[0] == Word::QUOTE && str[str.length() - 1] == Word::QUOTE) {
+      return str.substr(1, str.length() - 2);
+    }
+    return str;
+  }
+
   Lexer::Lexer(const std::string& str) {
     initKeywords();
     _tokenizer = std::make_unique<StreamTokenizer>(str);
@@ -55,7 +62,7 @@ namespace parse {
     std::string strValue = _tokenizer->sval();
     nextToken();
 
-    return strValue;
+    return unquote(strValue);
   }
 
   void Lexer::eatKeyword(const std::string& keyword) {

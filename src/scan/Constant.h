@@ -5,7 +5,6 @@
 
 namespace scan {
   class Constant {
-    public:
       friend bool operator==(const Constant& lhs, const Constant& rhs);
       friend bool operator!=(const Constant& lhs, const Constant& rhs);
       friend bool operator<(const Constant& lhs, const Constant& rhs);
@@ -14,6 +13,7 @@ namespace scan {
       friend bool operator>=(const Constant& lhs, const Constant& rhs);
       friend void operator+=(const Constant& lhs, const Constant& rhs);
 
+    public:
       Constant() {};
       Constant(const Constant& other);
       Constant(int ival);
