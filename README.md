@@ -35,3 +35,7 @@ This class manages the low-level file and disk I/O operations for the database.
 
 It is responsible for reading and writing entire blocks between disk and memory by transferring data between `BlockId`s and `Page`s.
 `FileMgr` also handles file creation, block allocation, and concurrency control for file access.
+
+### Log Manager
+#### `src/logging/LogMgr.cpp`
+This class manages the database write-ahead log (WAL) file at a low level. It appends log records, assigns increasing LSNs, packs records into fixed-size log blocks, and flushes log data to disk when requested to support durability and crash recovery. Transaction atomicity and WAL write-ordering guarantees are enforced by higher-level components that coordinate when log records are flushed and when data pages may be written.
