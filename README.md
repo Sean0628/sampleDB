@@ -48,3 +48,18 @@ This class represents a buffer frame in the buffer pool of the database system. 
 This class manages the buffer pool, which is a collection of fixed-size `Buffer` frames that cache database pages in memory. It handles pinning and unpinning pages, selecting a buffer frame to reuse when the pool is full, and coordinating the flushing of dirty pages to disk.
 
 For simplicity, this implementation uses a Naive replacement strategy, which selects the first unpinned buffer it finds for replacement.
+
+### Concurrency Manager
+#### `scr/tx/LockTable.cpp`
+This class implements a global lock table for concurrency control in the database system. It manages shared (S) and exclusive (X) locks on database blocks to ensure isolation between concurrent transactions. The LockTable supports acquiring and releasing locks, blocks transactions when conflicts occur, and uses a timeout-based mechanism to detect and break deadlocks.
+
+#### `src/tx/ConcurrencyMgr.cpp`
+This class manages transaction concurrency by coordinating with the `LockTable` to acquire and release locks on data items. It provides methods for transactions to request shared and exclusive locks, ensuring that the appropriate locking protocols are followed to maintain isolation and consistency.
+
+### Recovery Manager
+#### `src/tx/RecoveryMgr.cpp`
+This class manages transaction recovery in the database system. It is responsible for logging transaction operations, handling transaction commit and abort, and performing crash recovery using the write-ahead logging (WAL) protocol. The `RecoveryMgr` ensures that the database can be restored to a consistent state after a crash by replaying log records and undoing uncommitted transactions.
+
+### Transaction
+#### `src/tx/Transaction.cpp`
+This class represents a database transaction. It provides methods for starting, committing, and aborting transactions, as well as reading and writing data items. The `Transaction` class coordinates with the `ConcurrencyMgr` for locking and the `RecoveryMgr` for logging and recovery.
