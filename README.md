@@ -63,3 +63,18 @@ This class manages transaction recovery in the database system. It is responsibl
 ### Transaction
 #### `src/tx/Transaction.cpp`
 This class represents a database transaction. It provides methods for starting, committing, and aborting transactions, as well as reading and writing data items. The `Transaction` class coordinates with the `ConcurrencyMgr` for locking and the `RecoveryMgr` for logging and recovery.
+
+### Record Pages
+#### `src/record/Schema.cpp`
+This class represents the logical schema of a database table, defining its structure in terms of field names and their corresponding data types. The Schema class provides methods to add fields and retrieve field metadata such as type and length.
+It does not deal with physical storage details like offsets or record sizes.
+
+#### `src/record/Layout.cpp`
+This class represents the physical layout of records within a page based on a given schema. It calculates the byte offsets of fields within a record slot and the total size of each slot. The Layout class bridges the logical schema and the physical storage format used on disk.
+
+#### `src/record/RecordPage.cpp`
+This class represents a single page (block) that stores multiple fixed-size records. It provides methods to insert, delete, and iterate over records using slot numbers. The RecordPage class uses the Layout to locate and manipulate individual fields and maintains slot status (used or empty) within the page.
+
+### Table Scans
+#### `src/record/TableScan.cpp`
+This class provides a way to scan through all records in a table. It abstracts the process of navigating through multiple `RecordPage`s, allowing users to move to the next record, retrieve field values, and modify records without needing to manage page boundaries or slot numbers directly.
