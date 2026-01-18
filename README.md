@@ -78,3 +78,19 @@ This class represents a single page (block) that stores multiple fixed-size reco
 ### Table Scans
 #### `src/record/TableScan.cpp`
 This class provides a way to scan through all records in a table. It abstracts the process of navigating through multiple `RecordPage`s, allowing users to move to the next record, retrieve field values, and modify records without needing to manage page boundaries or slot numbers directly.
+
+### Metadata Manager
+#### `src/metadata/TableMgr.cpp`
+This class manages metadata for database tables, including their schemas and layouts. It is responsible for creating new tables, retrieving existing table information, and maintaining the system catalogs that store metadata for all tables in the database.
+
+#### `src/metadata/ViewMgr.cpp`
+This class manages metadata for database views. It provides functionality to create views and retrieve their definitions, storing view metadata in the system catalog.
+
+#### `src/metadata/StatMgr.cpp`
+This class manages statistical metadata for database tables. It collects and maintains statistics such as record counts, block counts, and estimated distinct values, which are used by the query optimizer and index metadata to estimate query costs.
+
+#### `src/metadata/IndexMgr.cpp`
+This class manages metadata for database indexes. It provides functionality to create and retrieve index metadata, storing index definitions in the system catalog. It coordinates with the TableMgr to access table schemas and with the StatMgr to incorporate table statistics when constructing index metadata.
+
+#### `src/metadata/MetadataMgr.cpp`
+This class serves as a central manager for all metadata-related operations in the database system. It coordinates with the `TableMgr`, `ViewMgr`, `StatMgr`, and `IndexMgr` to provide a unified interface for managing table schemas, views, statistics, and indexes.
