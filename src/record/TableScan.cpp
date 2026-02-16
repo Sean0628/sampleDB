@@ -65,6 +65,10 @@ namespace record {
     _recordPage->setInt(_currentSlot, fieldName, val);
   }
 
+  void TableScan::setBool(const std::string& fieldName, bool val) {
+    _recordPage->setInt(_currentSlot, fieldName, val ? 1 : 0);
+  }
+
   void TableScan::setString(const std::string& fieldName, const std::string& val) {
     _recordPage->setString(_currentSlot, fieldName, val);
   }

@@ -54,3 +54,59 @@ TEST_CASE("Planner executes table creation, insertion, and selection correctly",
   std::filesystem::remove_all(fileName);
 }
 
+TEST_CASE("Planner handles BOOL type end-to-end", "[Planner1Test]") {
+  std::string fileName = "plannerBoolTest";
+  std::filesystem::remove_all(fileName);
+
+  app::SampleDB db(fileName);
+  auto transaction = db.newTransaction();
+  plan::Planner& planner = db.getPlanner();
+
+  // Create table with BOOL field
+  std::string cmd = "create table task ( id int, done bool )";
+  REQUIRE_NOTHROW(planner.executeUpdate(cmd, transaction.get()));
+
+  // Insert rows with true/false
+  cmd = "insert into task ( id, done ) values ( 1, true )";
+  REQUIRE(planner.executeUpdate(cmd, transaction.get()) == 1);
+  cmd = "insert into task ( id, done ) values ( 2, false )";
+  REQUIRE(planner.executeUpdate(cmd, transaction.get()) == 1);
+  cmd = "insert into task ( id, done ) values ( 3, true )";
+  REQUIRE(planner.executeUpdate(cmd, transaction.get()) == 1);
+
+  // SELECT all rows and verify BOOL values
+  std::string qry = "select id, done from task";
+  auto p = planner.createQueryPlan(qry, transaction.get());
+  auto s = p->open();
+
+  int count = 0;
+  int trueCount = 0;
+  while (s->next()) {
+    int id = s->getInt("id");
+    bool done = s->getBool("done");
+    if (done) trueCount++;
+    count++;
+  }
+  s->close();
+
+  REQUIRE(count == 3);
+  REQUIRE(trueCount == 2);
+
+  // SELECT with WHERE filtering on BOOL (true maps to 1)
+  qry = "select id from task where done = true";
+  p = planner.createQueryPlan(qry, transaction.get());
+  s = p->open();
+
+  int filteredCount = 0;
+  while (s->next()) {
+    s->getInt("id");
+    filteredCount++;
+  }
+  s->close();
+
+  REQUIRE(filteredCount == 2);
+
+  transaction->commit();
+  std::filesystem::remove_all(fileName);
+}
+

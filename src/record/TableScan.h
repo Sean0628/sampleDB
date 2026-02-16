@@ -21,6 +21,7 @@ namespace record {
       scan::Constant getValue(const std::string& fieldName) override;
       bool hasField(const std::string& fieldName) override;
       void setInt(const std::string& fieldName, int val) override;
+      void setBool(const std::string& fieldName, bool val);
       void setString(const std::string& fieldName, const std::string& val) override;
       void setValue(const std::string& fieldName, const scan::Constant& val) override;
       void insert() override;

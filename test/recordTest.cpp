@@ -87,3 +87,44 @@ TEST_CASE("Record operations: insert, delete, iterate", "[RecordTest]") {
   tx1.unpin(blk);
   tx1.commit();
 }
+
+TEST_CASE("Record operations with BOOL fields", "[RecordTest]") {
+  std::string fileName = "recordBoolTest";
+  std::string logFileName = "simpledb.log";
+
+  int blockSize = 400;
+  auto path = std::filesystem::current_path() / fileName;
+
+  file::FileMgr fm(path, blockSize);
+  logging::LogMgr lm(fm, logFileName);
+  buffer::BufferMgr bm(fm, lm, 16);
+
+  tx::Transaction tx1(fm, lm, bm);
+  record::Schema sch;
+  sch.addIntField("id");
+  sch.addBoolField("active");
+  record::Layout layout(sch);
+
+  file::BlockId blk = tx1.append("boolrecordfile");
+  tx1.pin(blk);
+  record::RecordPage rp(tx1, blk, layout);
+  rp.format();
+
+  SECTION("BOOL fields store and retrieve true/false correctly") {
+    int slot0 = rp.insertAfter(-1);
+    REQUIRE(slot0 >= 0);
+    rp.setInt(slot0, "id", 1);
+    rp.setInt(slot0, "active", 1);
+
+    int slot1 = rp.insertAfter(slot0);
+    REQUIRE(slot1 >= 0);
+    rp.setInt(slot1, "id", 2);
+    rp.setInt(slot1, "active", 0);
+
+    REQUIRE(rp.getInt(slot0, "active") == 1);
+    REQUIRE(rp.getInt(slot1, "active") == 0);
+  }
+
+  tx1.unpin(blk);
+  tx1.commit();
+}
