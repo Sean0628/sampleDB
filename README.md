@@ -11,7 +11,45 @@ $ make run
 ```
 This compiles all source and test files into `build/test_runner` and executes them.
 
-### 3. Clean up build artifacts
+### 3. Build and run the interactive CLI
+```sh
+$ make cli
+$ ./build/sampledb [dbname]
+```
+This compiles the interactive SQL client into `build/sampledb`. The optional `dbname` argument specifies the database name (default: `sampledb`). Database files are stored under `data/<dbname>/`.
+
+```
+sampledb> create table student ( id int, name varchar ( 20 ) );
+OK
+sampledb> insert into student ( id, name ) values ( 1, 'alice' );
+1 row(s) affected
+sampledb> select id, name from student;
++---------+-----------------------+
+| id      | name                  |
++---------+-----------------------+
+|       1 | alice                 |
++---------+-----------------------+
+1 row(s)
+sampledb> exit
+Bye
+```
+
+#### Supported SQL
+| Statement | Syntax |
+|-----------|--------|
+| SELECT | `SELECT fields FROM tables [WHERE pred] [GROUP BY fields] [ORDER BY fields]` |
+| INSERT | `INSERT INTO table ( fields ) VALUES ( values )` |
+| UPDATE | `UPDATE table SET field = value [WHERE pred]` |
+| DELETE | `DELETE FROM table [WHERE pred]` |
+| CREATE TABLE | `CREATE TABLE name ( field1 INT, field2 VARCHAR ( length ), ... )` |
+| CREATE VIEW | `CREATE VIEW name AS SELECT ...` |
+| CREATE INDEX | `CREATE INDEX name ON table ( field )` |
+
+**Supported types:** `INT`, `VARCHAR(length)`
+
+**Not supported:** ALTER, DROP, JOIN keyword (use comma-separated tables with WHERE instead), DISTINCT, LIMIT/OFFSET, NULL, ASC/DESC, UNION, subqueries in WHERE/SELECT, multiple SET fields in UPDATE
+
+### 4. Clean up build artifacts
 ```sh
 $ make clean
 ```
