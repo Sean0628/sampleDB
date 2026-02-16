@@ -10,7 +10,13 @@ namespace parse {
   }
 
   scan::Constant Parser::constant() const {
-    if (_lexer->matchString()) {
+    if (_lexer->matchKeyword(Word::TRUE_WORD)) {
+      _lexer->eatKeyword(Word::TRUE_WORD);
+      return scan::Constant(1);
+    } else if (_lexer->matchKeyword(Word::FALSE_WORD)) {
+      _lexer->eatKeyword(Word::FALSE_WORD);
+      return scan::Constant(0);
+    } else if (_lexer->matchString()) {
       scan::Constant c(_lexer->eatString());
       return c;
     } else {
@@ -267,6 +273,9 @@ namespace parse {
     if (_lexer->matchKeyword(Word::INT)) {
       _lexer->eatKeyword(Word::INT);
       schema.addIntField(fieldName);
+    } else if (_lexer->matchKeyword(Word::BOOL)) {
+      _lexer->eatKeyword(Word::BOOL);
+      schema.addBoolField(fieldName);
     } else {
       _lexer->eatKeyword(Word::VARCHAR);
       _lexer->eatDelimiter(Word::LEFT_PAREN);

@@ -33,6 +33,17 @@ namespace interface {
     }
   }
 
+  bool ResultSet::getBool(std::string& fieldName) const {
+    try {
+      boost::algorithm::to_lower(fieldName);
+      return _scan->getBool(fieldName);
+    } catch (const std::exception& e) {
+      _connection->rollback();
+      std::runtime_error("Failed to get bool value for field '" + fieldName + "': " + std::string(e.what()));
+      return false;
+    }
+  }
+
   std::string ResultSet::getString(std::string& fieldName) const {
     try {
       boost::algorithm::to_lower(fieldName);

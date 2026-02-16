@@ -18,6 +18,7 @@ namespace materialize {
       void beforeFirst() override;
       bool next() override;
       int getInt(const std::string& fieldName) override;
+      bool getBool(const std::string& fieldName) override;
       std::string getString(const std::string& fieldName) override;
       scan::Constant getValue(const std::string& fieldName) override;
       bool hasField(const std::string& fieldName) override;

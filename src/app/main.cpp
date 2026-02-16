@@ -68,6 +68,9 @@ static void printResultSet(interface::ResultSet& rs) {
       std::string name = colNames[i];
       if (colTypes[i] == record::Schema::INTEGER) {
         std::cout << " " << std::right << std::setw(colWidths[i]) << rs.getInt(name) << " |";
+      } else if (colTypes[i] == record::Schema::BOOLEAN) {
+        std::string bval = rs.getBool(name) ? "true" : "false";
+        std::cout << " " << std::left << std::setw(colWidths[i]) << bval << " |";
       } else {
         std::cout << " " << std::left << std::setw(colWidths[i]) << rs.getString(name) << " |";
       }

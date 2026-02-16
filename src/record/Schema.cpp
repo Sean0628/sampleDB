@@ -3,6 +3,7 @@
 namespace record {
   const int Schema::INTEGER;
   const int Schema::VARCHAR;
+  const int Schema::BOOLEAN;
 
   Schema& Schema::operator=(const Schema& schema) {
     if (this != &schema) {
@@ -24,6 +25,10 @@ namespace record {
 
   void Schema::addStringField(const std::string& fieldName, int length) {
     addField(fieldName, VARCHAR, length);
+  }
+
+  void Schema::addBoolField(const std::string& fieldName) {
+    addField(fieldName, BOOLEAN, 0);
   }
 
   void Schema::add(const std::string& fieldName, const Schema& schema) {

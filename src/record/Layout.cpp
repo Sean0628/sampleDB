@@ -43,6 +43,8 @@ namespace record {
     int fieldType = _schema.fieldType(fieldName);
     if (fieldType == Schema::INTEGER) {
       return static_cast<int>(sizeof(int));
+    } else if (fieldType == Schema::BOOLEAN) {
+      return static_cast<int>(sizeof(int));
     } else if (fieldType == Schema::VARCHAR) {
       return file::Page::maxLength(_schema.fieldLength(fieldName));
     }

@@ -51,6 +51,10 @@ namespace materialize {
     return getValue(fieldName).asInt();
   }
 
+  bool GroupByScan::getBool(const std::string& fieldName) {
+    return getValue(fieldName).asInt() != 0;
+  }
+
   std::string GroupByScan::getString(const std::string& fieldName) {
     return getValue(fieldName).asString();
   }

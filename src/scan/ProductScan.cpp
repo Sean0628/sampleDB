@@ -25,6 +25,12 @@ namespace scan {
     return _scan2->getInt(fieldName);
   }
 
+  bool ProductScan::getBool(const std::string& fieldName) {
+    if (_scan1->hasField(fieldName)) return _scan1->getBool(fieldName);
+
+    return _scan2->getBool(fieldName);
+  }
+
   std::string ProductScan::getString(const std::string& fieldName) {
     if (_scan1->hasField(fieldName)) return _scan1->getString(fieldName);
 

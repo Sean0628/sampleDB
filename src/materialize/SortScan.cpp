@@ -63,6 +63,10 @@ namespace materialize {
     return _currentScan->getInt(fieldName);
   }
 
+  bool SortScan::getBool(const std::string& fieldName) {
+    return _currentScan->getBool(fieldName);
+  }
+
   std::string SortScan::getString(const std::string& fieldName) {
     return _currentScan->getString(fieldName);
   }

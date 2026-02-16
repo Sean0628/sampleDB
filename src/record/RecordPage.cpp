@@ -39,7 +39,7 @@ namespace record {
       for (const auto& fieldName : schema.fieldNames()) {
         int fieldPos = offset(slot) + _layout.offset(fieldName);
 
-        if (schema.fieldType(fieldName) == Schema::INTEGER) {
+        if (schema.fieldType(fieldName) == Schema::INTEGER || schema.fieldType(fieldName) == Schema::BOOLEAN) {
           _tx.setInt(_blk, fieldPos, 0, false);
         } else if (schema.fieldType(fieldName) == Schema::VARCHAR) {
           _tx.setString(_blk, fieldPos, "", false);

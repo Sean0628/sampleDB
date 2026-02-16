@@ -20,6 +20,12 @@ namespace scan {
     throw std::runtime_error("Field not found: " + fieldName);
   }
 
+  bool ProjectScan::getBool(const std::string& fieldName) {
+    if (hasField(fieldName)) return _scan->getBool(fieldName);
+
+    throw std::runtime_error("Field not found: " + fieldName);
+  }
+
   std::string ProjectScan::getString(const std::string& fieldName) {
     if (hasField(fieldName)) return _scan->getString(fieldName);
 
