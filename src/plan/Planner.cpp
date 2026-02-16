@@ -20,8 +20,6 @@ namespace plan {
     auto objectPtr = parser.updateCmd();
     int id = objectPtr->getObjectId();
 
-    std::cout << "Executing update command with ID: " << id << std::endl;
-
     if (id == parse::ObjectID::INSERT) {
       return _updatePlanner->executeInsert(static_cast<parse::InsertData*>(objectPtr.get()), tx);
     } else if (id == parse::ObjectID::DELETE) {
