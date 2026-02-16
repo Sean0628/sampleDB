@@ -10,6 +10,7 @@ namespace scan {
       virtual void beforeFirst() = 0;
       virtual bool next() = 0;
       virtual int getInt(const std::string& fieldName) = 0;
+      virtual bool getBool(const std::string& fieldName) = 0;
       virtual std::string getString(const std::string& fieldName) = 0;
       virtual Constant getValue(const std::string& fieldName) = 0;
       virtual bool hasField(const std::string& fieldName) = 0;

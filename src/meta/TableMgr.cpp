@@ -68,6 +68,8 @@ namespace meta {
 
         if (type == record::Schema::INTEGER) {
           schema.addIntField(fieldName);
+        } else if (type == record::Schema::BOOLEAN) {
+          schema.addBoolField(fieldName);
         } else if (type == record::Schema::VARCHAR) {
           schema.addStringField(fieldName, length);
         }

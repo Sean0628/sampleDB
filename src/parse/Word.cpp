@@ -31,6 +31,9 @@ namespace parse {
   const std::string Word::SUM = "sum";
   const std::string Word::INT = "int";
   const std::string Word::VARCHAR = "varchar";
+  const std::string Word::BOOL = "bool";
+  const std::string Word::TRUE_WORD = "true";
+  const std::string Word::FALSE_WORD = "false";
   const std::string Word::VALUES = "values";
   const std::string Word::SPACE = " ";
 }

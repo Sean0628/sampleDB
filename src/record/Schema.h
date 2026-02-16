@@ -14,6 +14,7 @@ namespace record {
       void addField(const std::string& fieldName, int fieldType, int length);
       void addIntField(const std::string& fieldName);
       void addStringField(const std::string& fieldName, int length);
+      void addBoolField(const std::string& fieldName);
       void add(const std::string& fieldName, const Schema& schema);
       void addAll(const Schema& schema);
       std::vector<std::string> fieldNames() const;
@@ -21,7 +22,7 @@ namespace record {
       int fieldType(const std::string& fieldName) const;
       int fieldLength(const std::string& fieldName) const;
 
-      static const int INTEGER = 0, VARCHAR = 1;
+      static const int INTEGER = 0, VARCHAR = 1, BOOLEAN = 2;
     private:
       std::vector<std::string> _fields;
       std::map<std::string, FieldInfo> _fieldInfo;

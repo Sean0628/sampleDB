@@ -35,6 +35,9 @@ namespace parse {
       static const std::string SUM;
       static const std::string INT;
       static const std::string VARCHAR;
+      static const std::string BOOL;
+      static const std::string TRUE_WORD;
+      static const std::string FALSE_WORD;
       static const std::string VALUES;
       static const std::string SPACE;
     };

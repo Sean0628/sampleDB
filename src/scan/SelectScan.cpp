@@ -21,6 +21,10 @@ namespace scan {
     return _scan->getInt(fieldName);
   }
 
+  bool SelectScan::getBool(const std::string& fieldName) {
+    return _scan->getBool(fieldName);
+  }
+
   std::string SelectScan::getString(const std::string& fieldName) {
     return _scan->getString(fieldName);
   }

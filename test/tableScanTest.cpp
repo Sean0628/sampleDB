@@ -85,3 +85,52 @@ TEST_CASE("TableScan inserts, deletes, and scans records correctly", "[TableScan
   ts.close();
   tx1.commit();
 }
+
+TEST_CASE("TableScan handles BOOL fields correctly", "[TableScan]") {
+  std::string fileName = "tableScanBoolTest";
+  std::string logFileName = "simpledb.log";
+
+  int blockSize = 400;
+  auto path = std::filesystem::current_path() / fileName;
+
+  file::FileMgr fm(path, blockSize);
+  logging::LogMgr lm(fm, logFileName);
+  buffer::BufferMgr bm(fm, lm, 8);
+
+  tx::Transaction tx1(fm, lm, bm);
+
+  record::Schema sch;
+  sch.addIntField("id");
+  sch.addBoolField("active");
+  record::Layout layout(sch);
+
+  record::TableScan ts(tx1, "BoolT", layout);
+
+  ts.beforeFirst();
+  for (int i = 0; i < 10; i++) {
+    ts.insert();
+    ts.setInt("id", i);
+    ts.setBool("active", i % 2 == 0); // even ids are active
+  }
+
+  SECTION("getBool returns correct values") {
+    ts.beforeFirst();
+    while (ts.next()) {
+      int id = ts.getInt("id");
+      bool active = ts.getBool("active");
+      REQUIRE(active == (id % 2 == 0));
+    }
+  }
+
+  SECTION("getValue wraps BOOL as int Constant") {
+    ts.beforeFirst();
+    while (ts.next()) {
+      int id = ts.getInt("id");
+      scan::Constant val = ts.getValue("active");
+      REQUIRE(val.asInt() == (id % 2 == 0 ? 1 : 0));
+    }
+  }
+
+  ts.close();
+  tx1.commit();
+}

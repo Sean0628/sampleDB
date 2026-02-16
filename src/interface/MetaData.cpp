@@ -32,7 +32,10 @@ namespace interface {
     try {
       std::string fieldName = getColumnName(column);
       int fieldType = _schema.fieldType(fieldName);
-      int fieldLength = (fieldType == record::Schema::INTEGER) ? 6 : _schema.fieldLength(fieldName);
+      int fieldLength;
+      if (fieldType == record::Schema::INTEGER) fieldLength = 6;
+      else if (fieldType == record::Schema::BOOLEAN) fieldLength = 5;
+      else fieldLength = _schema.fieldLength(fieldName);
       return fieldName.length() > fieldLength ? fieldName.length() + 1: fieldLength + 1;
     } catch (const std::exception& e) {
       throw std::runtime_error("Failed to get column display size: " + std::string(e.what()));

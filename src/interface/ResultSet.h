@@ -19,6 +19,7 @@ namespace interface {
       ResultSet(plan::Plan* plan, Connection* connection);
       bool next();
       int getInt(std::string& fieldName) const;
+      bool getBool(std::string& fieldName) const;
       std::string getString(std::string& fieldName) const;
       MetaData getMetaData() const;
       void close();

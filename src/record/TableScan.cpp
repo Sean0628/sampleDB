@@ -40,12 +40,17 @@ namespace record {
     return _recordPage->getInt(_currentSlot, fieldName);
   }
 
+  bool TableScan::getBool(const std::string& fieldName) {
+    return _recordPage->getInt(_currentSlot, fieldName) != 0;
+  }
+
   std::string TableScan::getString(const std::string& fieldName) {
     return _recordPage->getString(_currentSlot, fieldName);
   }
 
   scan::Constant TableScan::getValue(const std::string& fieldName) {
-    if (_layout.schema().fieldType(fieldName) == Schema::INTEGER) {
+    int type = _layout.schema().fieldType(fieldName);
+    if (type == Schema::INTEGER || type == Schema::BOOLEAN) {
       return scan::Constant(getInt(fieldName));
     } else {
       return scan::Constant(getString(fieldName));
@@ -60,12 +65,17 @@ namespace record {
     _recordPage->setInt(_currentSlot, fieldName, val);
   }
 
+  void TableScan::setBool(const std::string& fieldName, bool val) {
+    _recordPage->setInt(_currentSlot, fieldName, val ? 1 : 0);
+  }
+
   void TableScan::setString(const std::string& fieldName, const std::string& val) {
     _recordPage->setString(_currentSlot, fieldName, val);
   }
 
   void TableScan::setValue(const std::string& fieldName, const scan::Constant& val) {
-    if (_layout.schema().fieldType(fieldName) == Schema::INTEGER) {
+    int type = _layout.schema().fieldType(fieldName);
+    if (type == Schema::INTEGER || type == Schema::BOOLEAN) {
       setInt(fieldName, val.asInt());
     } else {
       setString(fieldName, val.asString());

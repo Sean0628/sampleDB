@@ -22,6 +22,7 @@ namespace materialize {
       void close() override;
       scan::Constant getValue(const std::string& fieldName) override;
       int getInt(const std::string& fieldName) override;
+      bool getBool(const std::string& fieldName) override;
       std::string getString(const std::string& fieldName) override;
       bool hasField(const std::string& fieldName) override;
     private:

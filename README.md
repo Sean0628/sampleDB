@@ -41,11 +41,11 @@ Bye
 | INSERT | `INSERT INTO table ( fields ) VALUES ( values )` |
 | UPDATE | `UPDATE table SET field = value [WHERE pred]` |
 | DELETE | `DELETE FROM table [WHERE pred]` |
-| CREATE TABLE | `CREATE TABLE name ( field1 INT, field2 VARCHAR ( length ), ... )` |
+| CREATE TABLE | `CREATE TABLE name ( field1 INT, field2 VARCHAR ( length ), field3 BOOL, ... )` |
 | CREATE VIEW | `CREATE VIEW name AS SELECT ...` |
 | CREATE INDEX | `CREATE INDEX name ON table ( field )` |
 
-**Supported types:** `INT`, `VARCHAR(length)`
+**Supported types:** `INT`, `VARCHAR(length)`, `BOOL` (accepts `true`/`false` literals, stored as int internally)
 
 **Not supported:** ALTER, DROP, JOIN keyword (use comma-separated tables with WHERE instead), DISTINCT, LIMIT/OFFSET, NULL, ASC/DESC, UNION, subqueries in WHERE/SELECT, multiple SET fields in UPDATE
 

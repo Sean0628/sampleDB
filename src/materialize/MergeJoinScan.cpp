@@ -53,6 +53,10 @@ namespace materialize {
     return _s1->hasField(fieldName) ? _s1->getInt(fieldName) : _s2->getInt(fieldName);
   }
 
+  bool MergeJoinScan::getBool(const std::string& fieldName) {
+    return _s1->hasField(fieldName) ? _s1->getBool(fieldName) : _s2->getBool(fieldName);
+  }
+
   std::string MergeJoinScan::getString(const std::string& fieldName) {
     return _s1->hasField(fieldName) ? _s1->getString(fieldName) : _s2->getString(fieldName);
   }

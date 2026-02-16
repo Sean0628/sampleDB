@@ -15,6 +15,7 @@ namespace scan {
       void beforeFirst() override;
       bool next() override;
       int getInt(const std::string& fieldName) override;
+      bool getBool(const std::string& fieldName) override;
       std::string getString(const std::string& fieldName) override;
       Constant getValue(const std::string& fieldName) override;
       bool hasField(const std::string& fieldName) override;

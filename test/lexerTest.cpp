@@ -36,3 +36,23 @@ TEST_CASE("Lexer handles identifier and integer equality expressions", "[LexerTe
     REQUIRE(y > 0);
   }
 }
+
+TEST_CASE("Lexer recognizes bool, true, and false as keywords", "[LexerTest]") {
+  SECTION("bool is a keyword, not an identifier") {
+    parse::Lexer lex("bool");
+    REQUIRE(lex.matchKeyword("bool"));
+    REQUIRE_FALSE(lex.matchIdentifier());
+  }
+
+  SECTION("true is a keyword, not an identifier") {
+    parse::Lexer lex("true");
+    REQUIRE(lex.matchKeyword("true"));
+    REQUIRE_FALSE(lex.matchIdentifier());
+  }
+
+  SECTION("false is a keyword, not an identifier") {
+    parse::Lexer lex("false");
+    REQUIRE(lex.matchKeyword("false"));
+    REQUIRE_FALSE(lex.matchIdentifier());
+  }
+}
