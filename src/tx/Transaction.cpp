@@ -5,23 +5,32 @@ namespace tx {
   std::mutex Transaction::_mutex;
 
   Transaction::Transaction(file::FileMgr& fm, logging::LogMgr& lm, buffer::BufferMgr& bm)
-    : _fm(fm), _lm(lm), _bm(bm) {
+    : _fm(fm), _lm(lm), _bm(bm), _finished(false) {
     _txNum = newTransactionNumber();
     _recoveryMgr = std::make_unique<RecoveryMgr>(*this, _txNum, lm, bm);
     _concurrencyMgr = std::make_unique<ConcurrencyMgr>();
     _buffers = std::make_unique<BufferList>(bm);
   }
 
+  Transaction::~Transaction() {
+    if (!_finished) {
+      _concurrencyMgr->release();
+      _buffers->unpinAll();
+    }
+  }
+
   void Transaction::commit() {
     _recoveryMgr->commit();
     _concurrencyMgr->release();
     _buffers->unpinAll();
+    _finished = true;
   }
 
   void Transaction::rollback() {
     _recoveryMgr->rollback();
     _concurrencyMgr->release();
     _buffers->unpinAll();
+    _finished = true;
   }
 
   void Transaction::recover() {
@@ -29,6 +38,7 @@ namespace tx {
     _recoveryMgr->recover();
     _concurrencyMgr->release();
     _buffers->unpinAll();
+    _finished = true;
   }
 
   void Transaction::pin(const file::BlockId& blkId) {
