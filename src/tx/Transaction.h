@@ -14,6 +14,7 @@ namespace tx {
   class Transaction {
     public:
       Transaction(file::FileMgr& fm, logging::LogMgr& lm, buffer::BufferMgr& bm);
+      ~Transaction();
       void commit();
       void rollback();
       void recover();
@@ -39,6 +40,7 @@ namespace tx {
       buffer::BufferMgr& _bm;
       int _txNum;
       std::unique_ptr<BufferList> _buffers;
+      bool _finished;
       static std::mutex _mutex;
       static int newTransactionNumber();
   };
